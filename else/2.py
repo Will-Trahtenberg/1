@@ -106,8 +106,14 @@ class AddEditRecordWindow(QWidget):
         self.setLayout(self.layout)
 
         self.fields = {
-            "code": QLineEdit(),
-            "name": QLineEdit(),
+            "код студента": QLineEdit(),
+            "фио": QLineEdit(),
+            "дата рождения": QLineEdit(),
+            "номе зачетной книжки": QLineEdit(),
+            "статус": QLineEdit(),
+            "номер телефона": QLineEdit(),
+            "пол": QLineEdit(),
+
             # Добавьте остальные поля в соответствии с вашими таблицами
         }
 
@@ -121,14 +127,28 @@ class AddEditRecordWindow(QWidget):
         self.save_button.clicked.connect(self.save_record)
         self.layout.addWidget(self.save_button)
 
-        if record_id is not None:
-            # Если передан идентификатор записи, это редактирование
-            self.load_record(record_id)
+        self.load_record(record_id)
 
     def load_record(self, record_id):
         # Загрузка данных выбранной записи для редактирования
         # Здесь нужно выполнить запрос к базе данных и заполнить поля формы
-        pass
+        if record_id != None:
+            query = "select код_студента, фио, дата_рождения, номер_телефона, статус, номер_зачетной_книжки, пол from студент"
+            self.db_manager.cursor.execute(query)
+            record = self.db_manager.cursor.fetchone()
+            query1 = "update студент set фио = %s, дата_рождения = %s, номер_телефона = %s, статус = %s, номер_зачетной_книжки = %s, пол = %s where код_студента = %s ;"
+            self.fields["код студента"] = query[0]
+            self.fields["дата рождения"] = query[1]
+            self.fields["номер телефона"] = query[2]
+            self.fields["статус"] = query[3]
+            self.fields["номер телефона"] = query[4]
+            self.fields["пол"] = query[5]
+            self.fields["Фио"] = query[6]
+            ...
+        else:
+            self.fields["code"] = 0
+            ...
+
 
     def save_record(self):
         # Сохранение/обновление записи в базе данных

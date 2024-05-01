@@ -9,5 +9,6 @@ class MainMenu(QMenuBar):
         self.about_qt = help_menu.addAction('o qt')
 
 
+
     def about(self):
         return self.__about

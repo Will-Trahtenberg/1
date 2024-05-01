@@ -36,6 +36,7 @@ class Model(QSqlQueryModel):
         def add(self, code_stud, fio_stud, birth_stud, numb_zachet_stud, status, phone_number, pol):
             conn = psycopg2.connect(**st.db_params)
             cursor = conn.cursor()
+
             data = (code_stud, fio_stud, birth_stud, numb_zachet_stud, status, phone_number, pol)
             cursor.execute(SELECT_ALL, data)
             conn.commit()

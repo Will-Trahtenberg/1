@@ -1,12 +1,12 @@
 import sys
-import PyQt5.QtWidgets
+from PyQt5.QtWidgets import QApplication
 from PyQt5.QtSql import QSqlDatabase
 import psycopg2
 from PyQt5.QtSql import QSqlDatabase
 import settings as st
 
 
-class Application(PyQt5.QtWidgets.QApplication):
+class Application(QApplication):
 
     def __init__(self, argv):
         super().__init__(argv)
