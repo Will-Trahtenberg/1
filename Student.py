@@ -24,8 +24,6 @@ UPDATE = '''
         where код_студента = %s ;
 '''
 
-
-
 class Model(QSqlQueryModel):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -44,6 +42,7 @@ class Model(QSqlQueryModel):
             conn.close()
             self.obnovit()
 
+
         def update(self, code_stud, fio_stud, birth_stud, numb_zachet_stud, status, phone_number, pol):
             conn = psycopg2.connect(**st.db_params)
             cursor = conn.cursor()
@@ -59,18 +58,6 @@ class View(QTableView):
         model = Model(parent=self)
         self.setModel(model)
 
-    def refresh_table(self, table_widget):
-        # Получение данных из базы данных и обновление таблицы
-        query = "SELECT * FROM студент"
-        self.cursor.execute(query)
-        data = self.cursor.fetchall()
-        # Очистим таблицу перед обновлением
-        table_widget.clear()
-        table_widget.setRowCount(len(data))
-        table_widget.setColumnCount(len(data[0]))
-        for i, row in enumerate(data):
-            for j, value in enumerate(row):
-                table_widget.setItem(i, j, QTableWidgetItem(str(value)))
 
     @pyqtSlot()
     def add(self):

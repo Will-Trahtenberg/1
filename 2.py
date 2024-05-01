@@ -44,7 +44,7 @@ class DatabaseManager:
         selected_row = self.table_widget.currentRow()
         if selected_row != -1:
             record_id = self.table_widget.item(selected_row, 0).text()
-            query = f"DELETE FROM your_table WHERE id={record_id}"
+            query = f"DELETE FROM студент WHERE код_студента={record_id}"
             self.cursor.execute(query)
             self.connection.commit()
             self.refresh_table()
@@ -52,9 +52,9 @@ class DatabaseManager:
     def save_record(self, data):
         # Сохранение/обновление записи в базе данных
         if data.get('id'):  # Если есть id, это редактирование
-            query = f"UPDATE your_table SET ..."
+            query = f"UPDATE студент SET код_студента"
         else:  # В противном случае, это добавление новой записи
-            query = f"INSERT INTO your_table (...) VALUES (...)"
+            query = f"INSERT INTO студент (select код_студента, фио, дата_рождения, номер_зачетной_книжки, статус, номер_телефона, пол from студент) VALUES (code_stud, fio_stud, birth_stud, numb_zachet_stud, status, phone_number, pol)"
         self.cursor.execute(query, data.values())
         self.connection.commit()
         self.refresh_table()
